@@ -1,27 +1,56 @@
 app.controller('Home', function(
-  										$scope,
-                                        StoreFactory
-  									){
+									$scope,
+                                    StoreFactory,
+                                    $routeParams,
+                                    ShoppingCart
+								){
 
-    $scope.cart = {};
+    $scope.cart = [];
     $scope.categories = [];
+    $scope.items = [];
 
     init();
 
 
     function init(){
-        getcategories();
+        if($routeParams.category_id){
+            getitemspercategory();
+        }
+        else {
+            getcategories();    
+        }
     }
 
     function getcategories(){
-        var promise = StoreFactory.getcategories();
-        promise.then(function(data){
-            console.log(data.data);
+        var filter = {
+            archived : false
+        };
 
-            $scope.categories = data.data.categories;
+        var promise = StoreFactory.getcategories(filter);
+        promise.then(function(data){
+            $scope.categories = data.data.result;            
         })
         .then(null, function(data){
             
         });
+    }
+
+    function getitemspercategory(){
+        var filter = {
+            categories_pk : $routeParams.category_id,
+            archived : false
+        };
+
+        var promise = StoreFactory.getitemspercategory(filter);
+        promise.then(function(data){
+            $scope.items = data.data.result;
+        })
+        .then(null, function(data){
+            
+        });   
+    }
+
+    $scope.add_to_cart = function(k){
+        ShoppingCart.setItems($scope.items[k]);
     }
 });

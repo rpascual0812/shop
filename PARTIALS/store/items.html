@@ -1,14 +1,14 @@
 <div>
-    <div class="col-sm-4 col-lg-4 col-md-4">
+    <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="(k,v) in items">
         <div class="thumbnail">
             <img src="./ASSETS/uploads/320x150.png" alt="">
             <div class="caption">
-                <h4 class="pull-right">$64.99</h4>
-                <h4><a href="#">Second Product</a>
-                </h4>
-                <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h4 class="pull-right">PHP {{v.price}}</h4>
+                <h3>{{v.item}}</h3>
+                <p>{{v.description}}</p>
 
-                <input type="button" class="btn btn-round btn-primary" value="ADD TO CART" />
+                <input type="text" ng-model="v.count" style="width:40px; height:40px; font-size:18px; text-align:center;" />
+                <input type="button" class="btn btn-round btn-primary" value="ADD TO CART" style="float:right;" ng-click="add_to_cart(k)"/>
             </div>
             <div class="ratings">
                 <p class="pull-right">12 reviews</p>

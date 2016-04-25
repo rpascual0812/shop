@@ -1,11 +1,11 @@
 <?php
-require_once('../connect.php');
+require_once('../../FUNCTIONS/connect.php');
 require_once('../../CLASSES/Categories.php');
 
 $class = new Categories(
 							NULL,
 							NULL,
-							$_POST['archived']
+							$_GET['archived']
 						);
 
 $data = $class->fetch();

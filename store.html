@@ -60,7 +60,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container" style="margin-top:51px;" ng-controller="Home">
+    <div class="container" style="margin-top:51px;">
 
         <div class="row">
 
@@ -97,12 +97,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="box-services">
+                                    <div class="box-services" ng-controller="ShoppingCart">
                                         <span class="fa fa-shopping-cart pull-left"></span>
                                         
                                         <div class="custom-boxes">
                                             <h4>Shopping Cart</h4>
-                                            <a><span id="cart-total">0 item(s) - PHP 0.00</span></a>
+                                            <a><span id="cart-total">{{cart.count}} item(s) - PHP {{cart.total}}</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -178,6 +178,7 @@
 
     <!-- CONTROLLERS -->
     <script src="./ASSETS/js/controllers/Home.js"></script>
+    <script src="./ASSETS/js/controllers/ShoppingCart.js"></script>
 
     <!-- FACTORIES -->
     <script src="./ASSETS/js/factories/StoreFactory.js"></script>
