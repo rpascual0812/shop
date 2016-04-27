@@ -1,0 +1,33 @@
+<div>
+	<div class="col-md-12">
+        <h3 class="animated fadeInLeft">Shopping Cart</h3>
+        <p class="animated fadeInDown breadcrumbs">
+            <a href="#/dashboard">Home</a> <span class="fa-angle-right fa"></span> 
+            <a href="#/candidates/list">Shopping Cart</a> <span class="fa-angle-right fa"></span> List
+        </p>
+    </div>
+
+	<table class="row-border hover report table table-striped table-bordered">
+		<thead>
+			<th>#</th>
+			<th>ITEM</th>
+			<th>Quantity</th>
+			<th>Total Price</th>
+		</thead>
+		<tbody ng-if="cart.list.length > 0">
+			<tr ng-repeat="(k,v) in cart.list">
+				<td>{{k + 1}}</td>
+				<td>{{v.item}}</td>
+				<td><input type="text" value="{{v.count}}" /></td>
+				<td>PHP {{v.price}}</td>
+			</tr>
+		</tbody>
+		<tbody ng-if="cart.list.length == 0">
+			<tr>
+				<td colspan="4" style="text-align:center;">No items added to cart yet.</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<input type="button" class="btn btn-round btn-primary" value="CHECKOUT" style="float:right;" ng-click="add_to_cart(k)"/>
+</div>

@@ -40,6 +40,7 @@ class Items extends ClassParent {
                     item,
                     price,
                     description,
+                    delivery_time,
                     1 as count,
                     archived
                 from items

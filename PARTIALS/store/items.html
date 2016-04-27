@@ -7,7 +7,7 @@
                 <h3>{{v.item}}</h3>
                 <p>{{v.description}}</p>
 
-                <input type="text" ng-model="v.count" style="width:40px; height:40px; font-size:18px; text-align:center;" />
+                <input type="text" ng-model="v.count" style="width:40px; height:40px; font-size:18px; text-align:center;" maxlength="3" is-number />
                 <input type="button" class="btn btn-round btn-primary" value="ADD TO CART" style="float:right;" ng-click="add_to_cart(k)"/>
             </div>
             <div class="ratings">

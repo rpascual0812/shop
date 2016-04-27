@@ -2,7 +2,8 @@ app.controller('Home', function(
 									$scope,
                                     StoreFactory,
                                     $routeParams,
-                                    ShoppingCart
+                                    ShoppingCart,
+                                    $cookies
 								){
 
     $scope.cart = [];

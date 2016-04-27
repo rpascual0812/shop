@@ -16,12 +16,17 @@ app.config(function($routeProvider){
         controller: 'Home',
         templateUrl: 'PARTIALS/store/items.html'
     })
+    .when('/cart',
+    {
+        controller: 'ShoppingCart',
+        templateUrl: 'PARTIALS/store/cart.html'
+    })
     .otherwise(
     {
         redirectTo: '/'
     })
 })
-.service('ShoppingCart', function () {
+.service('ShoppingCart', function ($cookies) {
     var items = {};
 
     items.list = [];
@@ -36,8 +41,9 @@ app.config(function($routeProvider){
             var item_exists = false;
             for(var i in items.list){
                 if(items.list[i].items_pk == value.pk){
+                    items.list[i].item = value.item;
                     items.list[i].count = parseInt(items.list[i].count) + parseInt(value.count);
-                    items.list[i].price = parseFloat(items.list[i].price) + (parseFloat(value.price) * parseFloat(value.count));
+                    items.list[i].price = parseFloat(items.list[i].price); //parseFloat(items.list[i].price) + (parseFloat(value.price) * parseFloat(value.count));
                     item_exists = true;
                 }
             }
@@ -45,7 +51,8 @@ app.config(function($routeProvider){
             if(item_exists == false){
                 items.list.push({
                     items_pk : value.pk,
-                    price : parseFloat(value.price) * parseFloat(value.count),
+                    item : value.item,
+                    price : parseFloat(value.price), // * parseFloat(value.count),
                     count : value.count
                 });
             }
@@ -57,8 +64,21 @@ app.config(function($routeProvider){
 
             items.total = 0;
             for(var i in items.list){
-                items.total += parseFloat(items.list[i].price);
+                items.total += parseInt(items.list[i].count) * parseFloat(items.list[i].price);
             }
+
+            $cookies.put('shoppingcart', JSON.stringify(items));
+
+            var shoppingcart = $cookies.get('shoppingcart');
+
+            console.log(JSON.parse(shoppingcart));
         }
     };
 });
+
+
+/*
+
+
+            
+*/
