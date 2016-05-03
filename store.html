@@ -18,6 +18,12 @@
     <link href="./ASSETS/css/shop.css" rel="stylesheet">
     <link href="./ASSETS/css/font-awesome.min.css" rel="stylesheet">
 
+    <!-- Plugins -->
+    <link rel="stylesheet" type="text/css" href="./ASSETS/js/plugins/dialog/ngDialog.min.css" >
+    <link rel="stylesheet" type="text/css" href="./ASSETS/js/plugins/dialog/ngDialog-theme-plain.min.css" >
+    <link rel="stylesheet" type="text/css" href="./ASSETS/js/plugins/dialog/ngDialog-theme-default.min.css" >
+    <link rel="stylesheet" type="text/css" href="./ASSETS/js/plugins/dialog/ngDialog-custom-width.css" >
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,7 +37,7 @@
       color:#333;
       width:300px; /* Chatbox width */
       max-height: 300px;
-      border:1px solid #344150;
+      border:1px solid #00709e;
       border-bottom:none;
       background-color:white;
       position:fixed;
@@ -71,7 +77,7 @@
       display:block;
       height:34px;
       line-height:24px;
-      background-color:#344150;
+      background-color:#00709e;
       color:white;
       font-weight:bold;
       padding:5px 1em 1px;
@@ -82,10 +88,10 @@
     
 
     /* hover state */
-    .chat-box > input[type="checkbox"]:hover + label {background-color:#404D5A}
+    .chat-box > input[type="checkbox"]:hover + label {background-color:#00709e}
 
     /* checked state */
-    .chat-box > input[type="checkbox"]:checked + label {background-color:#212A35}
+    .chat-box > input[type="checkbox"]:checked + label {background-color:#00709e}
     .chat-box > input[type="checkbox"]:checked + label:before {content:attr(data-expanded)}
     .chat-box > input[type="checkbox"]:checked ~ .chat-box-content {display:block}
 
@@ -116,7 +122,7 @@
                 <a class="navbar-brand" href="index.html">Gosari</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="width: 100%;">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="#">About</a>
@@ -126,6 +132,15 @@
                     </li>
                     <li>
                         <a href="#">Contact</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav" style="float:right;">
+                    <li>
+                        <a href="#">Rafael Pascual</a>
+                    </li>
+                    <li>
+                        <a href="#">Purchases</a>
                     </li>
                 </ul>
             </div>
@@ -275,13 +290,13 @@
                     </tbody>
                     <tbody ng-if="cart.list.length == 0">
                         <tr>
-                            <td colspan="4" style="text-align:center;">No items added to shopping cart yet.</td>
+                            <td colspan="5" style="text-align:center;">No items added to shopping cart yet.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="chat-box-button">
-                <input type="button" class="btn btn-round btn-primary" value="CHECKOUT" style="float:right;" ng-click="add_to_cart(k)"/>
+                <input type="button" class="btn btn-round btn-primary" value="CHECKOUT" style="float:right;" ng-click="checkout()" ng-disabled="cart.list.length==0" />
             </div>
         </div>
     </div>
@@ -307,6 +322,110 @@
 
     <!-- FACTORIES -->
     <script src="./ASSETS/js/factories/StoreFactory.js"></script>
+    <script src="./ASSETS/js/factories/UserFactory.js"></script>
+
+    <!-- PLUGINS -->
+    <script src="./ASSETS/js/plugins/dialog/ngDialog.js"></script>
 </body>
+
+<script type="text/ng-template" id="GenericModal">
+    <div class="ngdialog-message">
+        <!-- <div style="margin-top: -15px;">
+            <h3><span style="color:#0c79be;">{{ modal.title }}</span></h3>
+        </div> -->
+        <div>
+            <div style="float:left;">
+                <div>
+                    <h3><span style="color:#0c79be;">Register</span></h3>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <td>
+                                Mobile #:
+                            </td>
+                            <td>
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Preferred Name:
+                            </td>
+                            <td>
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Location:
+                            </td>
+                            <td>
+                                <input type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Password:
+                            </td>
+                            <td>
+                                <input type="password" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Repeat Password:
+                            </td>
+                            <td>
+                                <input type="password" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;">
+                                <input type="button" value="REGISTER" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    {{registermsg}}
+                </div>
+            </div>
+            <div style="float:left; height: 310px; margin-left: 5px; padding-left: 10px; border-left: 1px solid #000;">
+                <div>
+                    <h3><span style="color:#0c79be;">Login</span></h3>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <td>
+                                Mobile #:
+                            </td>
+                            <td>
+                                <input type="text" is-number ng-model="account.mobile" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Password:
+                            </td>
+                            <td>
+                                <input type="password" ng-model="account.password"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;">
+                                <input type="button" value="LOGIN" ng-click="login()"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    {{loginmsg}}
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-secondary" data-ng-click="confirm(1)">{{modal.close}}</button>
+    </div>
+</script>
 
 </html>
