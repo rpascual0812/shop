@@ -305,7 +305,8 @@ app.controller('ShoppingCart', function(
         if($scope.modal.another_delivery_date_checkbox){
             new_date = $('#pickerBothDates').val();
         }
-
+        console.log($scope.cart.list);
+        return false;
         var data = {
             mobile_number : mobile_number,
             new_date : new_date,

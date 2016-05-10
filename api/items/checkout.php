@@ -1,19 +1,16 @@
 <?php
 require_once('../../FUNCTIONS/connect.php');
-require_once('../../CLASSES/Items.php');
+require_once('../../CLASSES/Orders.php');
 
-$class = new Items(
+$class = new Orders(
 						NULL,
-                        $_GET['mobile_number'],
                         NULL,
                         NULL,
                         NULL,
                         NULL
 					);
 
-$items = $_GET['items'];
-
-$data = $class->fetch();
+$data = $class->create($_GET);
 
 header("HTTP/1.0 500 Internal Server Error");
 if($data['status']==true){
