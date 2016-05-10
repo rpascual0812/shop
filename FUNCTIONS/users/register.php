@@ -4,15 +4,14 @@ require_once('../../CLASSES/Users.php');
 
 $class = new Users(
 						NULL,
-						$_POST['mobile'],
-						NULL,
-						NULL,
-						NULL,
-						$_POST['password'],
-						NULL
+						$_POST['mobile_number'],
+						$_POST['email_address'],
+						$_POST['name'],
+						$_POST['location'],
+						$_POST['password']
 					);
 
-$data = $class->auth();
+$data = $class->create();
 
 header("HTTP/1.0 404 User Not Found");
 if($data['status']){

@@ -8,11 +8,10 @@ $class = new Users(
 						NULL,
 						NULL,
 						NULL,
-						$_POST['password'],
 						NULL
 					);
 
-$data = $class->auth();
+$data = $class->reset_password($_POST);
 
 header("HTTP/1.0 404 User Not Found");
 if($data['status']){

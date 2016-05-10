@@ -3,10 +3,10 @@ require_once('../connect.php');
 require_once('../../CLASSES/Categories.php');
 
 $class = new Categories(
+							$_POST['pk'],
 							NULL,
-							$_POST['classifications_pk'],
 							NULL,
-							$_POST['archived']
+							NULL							
 						);
 
 $data = $class->fetch();

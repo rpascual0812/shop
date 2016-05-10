@@ -1,14 +1,22 @@
 create table users (
 	pk serial primary key,
 	mobile_number text not null,
+	email_address text not null,
 	name text not null,
 	location text not null,
 	password text not null,
 	archived boolean default false
 );
 
+create table classifications (
+	pk serial primary key,
+	classification text not null,
+	archived boolean default false
+);
+
 create table categories (
 	pk serial primary key,
+	classifications_pk int references classifications(pk),
 	category text not null,
 	archived boolean default false
 );
@@ -43,6 +51,7 @@ create table orders (
 	status_pk int references statuses(pk),
 	mode_of_payment_pk int references mode_of_payment(pk),
 	date_created timestamptz default now(),
+	delivery_date timestamptz,
 	archived boolean default false
 );
 
@@ -68,6 +77,7 @@ create table items_reviews(
 );
 
 alter table users owner to gosari;
+alter table classifications owner to gosari;
 alter table categories owner to gosari;
 alter table items owner to gosari;
 alter table statuses owner to gosari;
@@ -78,5 +88,6 @@ alter table payment_details owner to gosari;
 alter table items_reviews owner to gosari;
 
 create unique index users_mobile_number_idx on users (mobile_number);
+create unique index classification_classification_idx on classifications (classification);
 create unique index categories_category_idx on categories (category);
 create unique index items_item_idx on items (categories_pk, item);

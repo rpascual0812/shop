@@ -33,20 +33,45 @@ class Orders extends ClassParent {
     public function create($post){
         $mobile_number = $post['mobile_number'];
         $orders = json_decode($post['order']);
+
+        $delivery_time='';
+        if($post['new_date']){
+            $delivery_time = $post['new_date'];
+        }
+        else {
+            foreach($orders as $k=>$v){
+                if($v->delivery_time > $delivery_time){
+                    $datenow = date('Y-m-d H:i:s');
+                    $z = explode(':', $v->delivery_time);
+
+                    $time="";
+                    if($z[0] > 0){
+                        $time .= $z[0] . " hours";
+                    }
+                    else if($z[1] > 0){
+                        $time .= $z[1] . " minutes";
+                    }
+
+                    $delivery_time = date('Y-m-d H:i:s', strtotime("+" . $time, strtotime($datenow)));
+                }
+            }
+        }
                 
         $sql = "begin;";
         $sql .= <<<EOT
                 insert into orders
                 (
                     order_number,
-                    users_pk
+                    users_pk,
+                    delivery_date
                 )
                 values
                 (
                     coalesce(
                         (select to_char(now(), 'YYMMDD-') || lpad((substring(max(order_number) from 8 for 4)::int + 1)::text, 4, '0') from orders)
                         , to_char(now(), 'YYMMDD-0001')),
-                    (select pk from users where mobile_number = '$mobile_number')
+                    (select pk from users where mobile_number = '$mobile_number'),
+                    '$delivery_time'
                 );
 EOT;
 

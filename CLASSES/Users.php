@@ -4,6 +4,7 @@ class Users extends ClassParent {
 
     var $pk = NULL;
     var $mobile_number = NULL;
+    var $email_address = NULL;
     var $name = NULL;
     var $location = NULL;
     var $password = NULL;
@@ -12,6 +13,7 @@ class Users extends ClassParent {
     public function __construct(
                                     $pk,
                                     $mobile_number,
+                                    $email_address,
                                     $name,
                                     $location,
                                     $password,
@@ -46,11 +48,25 @@ EOT;
         return ClassParent::get($sql);
     }
 
-    public function insert(){
+    public function profile(){
+        $sql = <<<EOT
+                select 
+                    *
+                from users
+                where archived = false
+                and mobile_number = '$this->mobile_number'
+                ;
+EOT;
+
+        return ClassParent::get($sql);
+    }
+
+    public function create(){
         $sql = <<<EOT
                 insert into users
                 (
                     mobile_number,
+                    email_address,
                     name,
                     location,
                     password
@@ -58,6 +74,7 @@ EOT;
                 values
                 (
                     '$this->mobile_number',
+                    '$this->email_address',
                     '$this->name',
                     '$this->location',
                     md5('$this->password')
@@ -66,6 +83,28 @@ EOT;
 EOT;
 
         return ClassParent::insert($sql);
+    }
+
+    public function reset_password($data){
+        foreach($data as $k=>$v){
+            $data[$k] = pg_escape_string(trim(strip_tags($v)));
+        }
+        
+        $new_password = $data['new_password'];
+        $sql = <<<EOT
+                update users set
+                (
+                    password
+                )
+                =
+                (
+                    md5('$new_password')
+                )
+                where mobile_number = '$this->mobile_number'
+                ;
+EOT;
+
+        return ClassParent::update($sql);
     }
 
 }

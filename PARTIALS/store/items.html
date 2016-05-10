@@ -1,4 +1,15 @@
-<div>
+<div style="padding-top:50px;">
+    <div class="panel box-shadow-none content-header">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <h3 class="animated fadeInLeft">{{category.category}}</h3>
+                <p class="animated fadeInDown breadcrumbs">
+                    
+                    <a href="#/">Categories</a> <span class="fa-angle-right fa"></span> {{category.category}}
+                </p>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="(k,v) in items">
         <div class="thumbnail">
             <img src="./ASSETS/uploads/320x150.png" alt="">

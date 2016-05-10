@@ -3,11 +3,13 @@ require_once('../../CLASSES/ClassParent.php');
 class Categories extends ClassParent {
 
     var $pk = NULL;
+    var $classifications_pk = NULL;
     var $category = NULL;
     var $archived = NULL;
 
     public function __construct(
                                     $pk,
+                                    $classifications_pk,
                                     $category,
                                     $archived
                                 ){
@@ -37,12 +39,20 @@ EOT;
         //where statement
         $sql .= " where true ";
 
-        if($this->category){
-            $sql .= "and category ilike 'category%'";
+        if($this->pk != null){
+            $sql .= "and pk = $this->pk";
+        }
+
+        if($this->classifications_pk != null){
+            $sql .= "and classifications_pk = $this->classifications_pk";
+        }
+
+        if($this->category != null){
+            $sql .= " and category ilike 'category%'";
         }
         
-        if($this->archived){
-            $sql .= "and archived = $this->archived";
+        if($this->archived != null){
+            $sql .= " and archived = $this->archived";
         }
 
         return ClassParent::get($sql);

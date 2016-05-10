@@ -2,12 +2,44 @@ var app = angular.module('onload', [
                                     'ngRoute',
                                     'ngCookies',
                                     'angular-md5',
-                                    'ngDialog'
+                                    'ngDialog',
+                                    'datePicker'
                                 ]);
 
 app.config(function($routeProvider){
     $routeProvider
+    .when('/profile',
+    {
+        controller: 'Profile',
+        templateUrl: 'PARTIALS/profile/index.html'
+    })
+    .when('/purchases',
+    {
+        controller: 'Purchases',
+        templateUrl: 'PARTIALS/purchases/index.html'
+    })
+    
+    .when('/about',
+    {
+        controller: 'Profile',
+        templateUrl: 'PARTIALS/profile/index.html'
+    })
+    .when('/services',
+    {
+        controller: 'Profile',
+        templateUrl: 'PARTIALS/profile/index.html'
+    })
+    .when('/contact',
+    {
+        controller: 'Profile',
+        templateUrl: 'PARTIALS/profile/index.html'
+    })
     .when('/',
+    {
+        controller: 'Home',
+        templateUrl: 'PARTIALS/home.html'
+    })
+    .when('/:classification_id',
     {
         controller: 'Home',
         templateUrl: 'PARTIALS/home.html'
@@ -16,11 +48,6 @@ app.config(function($routeProvider){
     {
         controller: 'Home',
         templateUrl: 'PARTIALS/store/items.html'
-    })
-    .when('/cart',
-    {
-        controller: 'ShoppingCart',
-        templateUrl: 'PARTIALS/store/cart.html'
     })
     .otherwise(
     {
@@ -93,11 +120,36 @@ app.config(function($routeProvider){
             var shoppingcart = $cookies.get('shoppingcart');
         }
     };
+})
+.service('User', function ($cookies, md5) {
+    var profile = {};
+
+    profile.mobile = '';
+    profile.status = false;
+
+    return {
+        get: function () {
+            var mobile = $cookies.get(md5.createHash('mobile'));
+
+            if(mobile === undefined){
+                //skip
+            }
+            else {
+                profile.status = true;
+                profile.mobile = mobile;
+            }
+
+            return profile;
+        },
+        get_mobile: function(){
+            var mobile = $cookies.get(md5.createHash('mobile'));            
+
+            if(mobile === undefined){
+                //skip
+            }
+            else {
+                return mobile;
+            }
+        }
+    };
 });
-
-
-/*
-
-
-            
-*/
