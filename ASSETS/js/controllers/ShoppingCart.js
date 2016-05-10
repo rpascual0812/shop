@@ -328,6 +328,15 @@ app.controller('ShoppingCart', function(
             })
             .then(function(value){
                 //cancelled
+                $scope.cart = {
+                    list : [],
+                    total : 0,
+                    count : 0
+                };
+
+                var now = new Date()
+                var exp = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() - 10);
+                $cookies.put('shoppingcart', JSON.stringify($scope.cart), { expires : exp });
             });
         });
     }
