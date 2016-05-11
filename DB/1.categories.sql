@@ -2,26 +2,32 @@
 insert into categories
 (
 	classifications_pk,
-	category	
+	category,
+	image
 )
 values
 (
 	1,
-	'Pinoy Classics'
+	'Pinoy Classics',
+	'./ASSETS/uploads/categories/1-PinoyClassics.jpg'
 ),
 (
 	1,
-	'Agahan'
+	'Agahan',
+	'./ASSETS/uploads/categories/1-Almusal.jpg'
 ),
 (
 	1,
-	'Tanghalian'
+	'Tanghalian',
+	'./ASSETS/uploads/categories/1-Tanghalian.jpg'
 ),
 (
 	1,
-	'Meryenda'
+	'Meryenda',
+	'./ASSETS/uploads/categories/1-Miryenda.jpg'
 ),
 (
 	1,
-	'Hapunan'
+	'Hapunan',
+	'./ASSETS/uploads/categories/1-Hapunan.jpg'
 );
