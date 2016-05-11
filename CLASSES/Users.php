@@ -37,7 +37,9 @@ class Users extends ClassParent {
     public function auth(){
         $sql = <<<EOT
                 select 
-                    mobile_number
+                    mobile_number,
+                    name,
+                    email_address
                 from users
                 where archived = false
                 and mobile_number = '$this->mobile_number'

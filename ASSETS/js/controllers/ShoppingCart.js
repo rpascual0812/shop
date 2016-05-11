@@ -48,7 +48,7 @@ app.controller('ShoppingCart', function(
     $scope.dates = {
         today: moment.tz('UTC').hour(12).startOf('h'), //12:00 UTC, today.
         minDate: moment.tz('UTC').add(1, 'd').hour(7).startOf('h'), //Tomorrow
-        maxDate: moment.tz('UTC').add(7, 'd').hour(19).startOf('h'), //6 days
+        maxDate: moment.tz('UTC').add(2, 'd').hour(19).startOf('h'), //6 days
     };
 
     $scope.minDate = $scope.dates.minDate;
