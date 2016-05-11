@@ -36,7 +36,7 @@ class Orders extends ClassParent {
 
         $delivery_time='';
         if($post['new_date']){
-            $delivery_time = $post['new_date'];
+            $delivery_time = preg_replace('/\'/i', '', $post['new_date']);
         }
         else {
             foreach($orders as $k=>$v){

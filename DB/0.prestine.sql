@@ -18,6 +18,7 @@ create table categories (
 	pk serial primary key,
 	classifications_pk int references classifications(pk),
 	category text not null,
+	image text not null,
 	archived boolean default false
 );
 

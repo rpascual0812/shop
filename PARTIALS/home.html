@@ -67,7 +67,7 @@
     <div class="row">
         <div class="col-sm-4 col-lg-4 col-md-4" ng-repeat="(k,v) in categories" ng-if="categories.length>0">
             <a href="#/category/{{v.pk}}"><div class="thumbnail" style="cursor:pointer;">
-                <img src="./ASSETS/uploads/320x150.png" alt="">
+                <img src="{{v.image}}" alt="">
                 <div class="categories">
                     <h4>
                         {{v.category}}
