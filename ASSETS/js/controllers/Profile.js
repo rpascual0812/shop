@@ -47,6 +47,7 @@ app.controller('Profile', function(
         if(newVal !== undefined){
             $scope.profile.status = true;
             $scope.profile.mobile = newVal;
+            $scope.getprofile(newVal);
         }
     }, true);
 
@@ -98,5 +99,15 @@ app.controller('Profile', function(
                 
             });
         }
+    }
+
+    $scope.logout = function(){
+        var now = new Date();
+        var exp = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() - 100);
+
+        var mobile = md5.createHash('mobile');
+        $cookies.put(mobile, '', { expires : exp });
+
+        window.location = "store.html";
     }
 }); 

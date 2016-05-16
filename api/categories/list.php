@@ -5,6 +5,7 @@ require_once('../../CLASSES/Categories.php');
 $class = new Categories(
 							NULL,
 							NULL,
+							NULL,
 							$_GET['archived']
 						);
 
