@@ -12,7 +12,7 @@ $class = new Users(
 						NULL
 					);
 
-$data = $class->auth();
+$data = $class->reset_password();
 
 header("HTTP/1.0 404 User Not Found");
 if($data['status']){
