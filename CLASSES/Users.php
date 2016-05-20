@@ -87,12 +87,7 @@ EOT;
         return ClassParent::insert($sql);
     }
 
-    public function reset_password($data){
-        foreach($data as $k=>$v){
-            $data[$k] = pg_escape_string(trim(strip_tags($v)));
-        }
-        
-        $new_password = $data['new_password'];
+    public function reset_password(){
         $sql = <<<EOT
                 update users set
                 (
@@ -100,7 +95,7 @@ EOT;
                 )
                 =
                 (
-                    md5('$new_password')
+                    md5('$this->password')
                 )
                 where mobile_number = '$this->mobile_number'
                 ;
